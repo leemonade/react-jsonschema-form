@@ -150,10 +150,12 @@ export default class Form extends Component {
     customFormats = this.props.customFormats,
     validateSchema = this.props.validateSchema
   ) {
+    console.log('validate prop', this.props);
     const { validate, transformErrors } = this.props;
     const { rootSchema } = this.getRegistry();
     const resolvedSchema = retrieveSchema(schema, rootSchema, formData);
     const resolvedValidateSchema = retrieveSchema(validateSchema, rootSchema, formData);
+    console.log('resolvedValidateSchema', resolvedValidateSchema);
     return validateFormData(
       formData,
       resolvedSchema,

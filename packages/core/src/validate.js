@@ -174,6 +174,7 @@ export default function validateFormData(
   customFormats = {},
   validateSchema
 ) {
+  console.log('validateSchema', validateSchema);
   if (validateSchema) {
     schema = validateSchema;
   }
