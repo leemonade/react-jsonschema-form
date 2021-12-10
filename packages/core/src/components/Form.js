@@ -57,6 +57,7 @@ export default class Form extends Component {
   getStateFromProps(props, inputFormData) {
     const state = this.state || {};
     const schema = "schema" in props ? props.schema : this.props.schema;
+    const validateSchema = "validateSchema" in props ? props.validateSchema : this.props.validateSchema;
     const uiSchema = "uiSchema" in props ? props.uiSchema : this.props.uiSchema;
     const edit = typeof inputFormData !== "undefined";
     const liveValidate =
@@ -92,7 +93,8 @@ export default class Form extends Component {
         formData,
         schema,
         additionalMetaSchemas,
-        customFormats
+        customFormats,
+        validateSchema
       );
       errors = schemaValidation.errors;
       errorSchema = schemaValidation.errorSchema;
@@ -145,18 +147,21 @@ export default class Form extends Component {
     formData,
     schema = this.props.schema,
     additionalMetaSchemas = this.props.additionalMetaSchemas,
-    customFormats = this.props.customFormats
+    customFormats = this.props.customFormats,
+    validateSchema = this.props.validateSchema
   ) {
     const { validate, transformErrors } = this.props;
     const { rootSchema } = this.getRegistry();
     const resolvedSchema = retrieveSchema(schema, rootSchema, formData);
+    const resolvedValidateSchema = retrieveSchema(validateSchema, rootSchema, formData);
     return validateFormData(
       formData,
       resolvedSchema,
       validate,
       transformErrors,
       additionalMetaSchemas,
-      customFormats
+      customFormats,
+      resolvedValidateSchema
     );
   }
 
