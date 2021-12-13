@@ -148,14 +148,13 @@ export default class Form extends Component {
     schema = this.props.schema,
     additionalMetaSchemas = this.props.additionalMetaSchemas,
     customFormats = this.props.customFormats,
-    validateSchema = this.props.validateSchema
+    validateSchema = this.props.validateSchema,
+    transformAjvErrors = this.props.transformAjvErrors,
   ) {
-    console.log('validate prop', this.props);
     const { validate, transformErrors } = this.props;
     const { rootSchema } = this.getRegistry();
     const resolvedSchema = retrieveSchema(schema, rootSchema, formData);
     const resolvedValidateSchema = retrieveSchema(validateSchema, rootSchema, formData);
-    console.log('resolvedValidateSchema', resolvedValidateSchema);
     return validateFormData(
       formData,
       resolvedSchema,
@@ -163,7 +162,8 @@ export default class Form extends Component {
       transformErrors,
       additionalMetaSchemas,
       customFormats,
-      resolvedValidateSchema
+      resolvedValidateSchema,
+      transformAjvErrors
     );
   }
 
