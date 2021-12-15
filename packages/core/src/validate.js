@@ -172,7 +172,8 @@ export default function validateFormData(
   transformErrors,
   additionalMetaSchemas = [],
   customFormats = {},
-  validateSchema
+  validateSchema,
+  _transformAjvErrors
 ) {
   if (validateSchema) {
     schema = validateSchema;
@@ -214,7 +215,12 @@ export default function validateFormData(
     validationError = err;
   }
 
-  let errors = transformAjvErrors(ajv.errors);
+  let errors = [];
+  if (typeof _transformAjvErrors === 'function') {
+    errors = _transformAjvErrors(ajv.errors, schema);
+  } else {
+    errors = transformAjvErrors(ajv.errors);
+  }
   // Clear errors to prevent persistent errors, see #1104
 
   ajv.errors = null;

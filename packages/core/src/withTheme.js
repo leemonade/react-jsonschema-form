@@ -7,10 +7,13 @@ function withTheme(themeProps) {
     fields = { ...themeProps.fields, ...fields };
     widgets = { ...themeProps.widgets, ...widgets };
 
+    const formData = themeProps.formData ? themeProps.formData : directProps.formData;
+
     return (
       <Form
         {...themeProps}
         {...directProps}
+        formData={formData}
         fields={fields}
         widgets={widgets}
         ref={ref}

@@ -148,7 +148,8 @@ export default class Form extends Component {
     schema = this.props.schema,
     additionalMetaSchemas = this.props.additionalMetaSchemas,
     customFormats = this.props.customFormats,
-    validateSchema = this.props.validateSchema
+    validateSchema = this.props.validateSchema,
+    transformAjvErrors = this.props.transformAjvErrors,
   ) {
     const { validate, transformErrors } = this.props;
     const { rootSchema } = this.getRegistry();
@@ -161,7 +162,8 @@ export default class Form extends Component {
       transformErrors,
       additionalMetaSchemas,
       customFormats,
-      resolvedValidateSchema
+      resolvedValidateSchema,
+      transformAjvErrors
     );
   }
 
