@@ -1,6 +1,7 @@
 import toPath from "lodash/toPath";
 import Ajv from "ajv";
 let ajv = createAjvInstance();
+import _isEmpty from "lodash/isEmpty";
 import { deepEquals, getDefaultFormState } from "./utils";
 
 let formerCustomFormats = null;
@@ -175,7 +176,7 @@ export default function validateFormData(
   validateSchema,
   _transformAjvErrors
 ) {
-  if (validateSchema) {
+  if (!_isEmpty(validateSchema)) {
     schema = validateSchema;
   }
   // Include form data with undefined values, which is required for validation.
@@ -209,11 +210,14 @@ export default function validateFormData(
   }
 
   let validationError = null;
+  console.log(schema, formData);
   try {
     ajv.validate(schema, formData);
   } catch (err) {
     validationError = err;
   }
+
+  console.log(ajv.errors);
 
   let errors = [];
   if (typeof _transformAjvErrors === 'function') {
