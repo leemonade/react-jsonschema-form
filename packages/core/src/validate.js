@@ -210,14 +210,11 @@ export default function validateFormData(
   }
 
   let validationError = null;
-  console.log(schema, formData);
   try {
     ajv.validate(schema, formData);
   } catch (err) {
     validationError = err;
   }
-
-  console.log(ajv.errors);
 
   let errors = [];
   if (typeof _transformAjvErrors === 'function') {
